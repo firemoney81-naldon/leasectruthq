@@ -1,23 +1,868 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+
+    <!-- JSON-LD Structured Data for SEO Snippet -->
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Product",
+          "name": "더올뉴 모닝 장기렌트카 최저가 비교 플랫폼",
+          "image": "https://yourdomain.com/images/morning-rent.jpg",
+          "description": "2026년 최신 기아 더올뉴 모닝 장기렌트카 가격 비교 및 무보증 견적 가이드입니다. 연령별, 모델별 최저 요금제와 다양한 사은품 혜택 정보를 한 번에 확인하세요.",
+          "brand": {
+            "@type": "Brand",
+            "name": "기아"
+          },
+          "offers": {
+            "@type": "AggregateOffer",
+            "priceCurrency": "KRW",
+            "lowPrice": "200000",
+            "highPrice": "450000",
+            "offerCount": "15",
+            "areaServed": "대한민국"
+          }
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "더올뉴 모닝 장기렌트카의 월 평균 대여료는 얼마인가요?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "더올뉴 모닝 장기렌트카의 예상 월 요금은 계약 기간 48개월 내지 60개월, 선납금 30% 조건 기준으로 약 20만 원대 초반에서 후반으로 책정됩니다. 보증 조건이나 선택 옵션에 따라 최종 비용에 일부 차이가 존재할 수 있습니다."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "신용도가 낮아도 무보증 장기렌트 계약을 신청할 수 있나요?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "가능합니다. 많은 전문 렌트 업체에서 신규 사업자나 초기 비용 부담을 겪는 고객들을 위해 무보증 장기렌트 심사 요건을 점차 완화하고 있습니다. 전문 컨설팅을 통해 보증보험 증권 발행 방식으로 초기 비용 제로 계약을 진행하는 방법도 준비되어 있습니다."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "장기렌트 만기 시 인수하는 것과 반납하는 것 중 어느 방법이 유리합니까?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "계약 만기 시점의 차량 잔존가치와 당시 중고차 시세를 비교하여 결정하는 것이 합리적입니다. 모닝은 경차 특성상 감가율이 낮고 중고차 수요가 꾸준하므로, 만기 인수 금액이 중고차 시세보다 낮다면 인수 후 직접 매각하는 방법이 금전적으로 유리할 수 있습니다."
+              }
+            }
+          ]
+        }
+    </script>
+
+    <style>
+        /* CSS Modern variables & Reset */
+        :root {
+            --primary-color: #0d9488;      /* Soft Teal */
+            --primary-hover: #0f766e;     /* Dark Teal */
+            --secondary-color: #4b5563;   /* Slate Gray */
+            --accent-color: #f59e0b;      /* Warm Amber */
+            --background-light: #f9fafb;  /* Crisp Off-White */
+            --card-background: #ffffff;   /* Pure White */
+            --border-color: #e5e7eb;      /* Light Gray */
+            --text-main: #1f2937;         /* Deep Slate */
+            --text-muted: #6b7280;        /* Muted Gray */
+            --highlight-bg: #f0fdfa;      /* Soft Teal Tint */
+        }
+
+        body { 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif; 
+            background-color: var(--background-light); 
+            color: var(--text-main); 
+            line-height: 1.75; 
+            letter-spacing: -0.02em;
+        }
+
+        a { 
+            text-decoration: none; 
+            color: var(--primary-color); 
+            transition: color 0.2s ease, border-color 0.2s ease; 
+        }
+        a:hover { 
+            color: var(--primary-hover); 
+        }
+
+        header, main, footer { 
+            max-width: 1100px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            box-sizing: border-box; 
+        }
+
+        /* Header Style */
+        header { 
+            background-color: var(--card-background); 
+            border-bottom: 1px solid var(--border-color); 
+            padding: 40px 20px; 
+            text-align: center; 
+            border-radius: 0 0 16px 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        header h1 { 
+            color: var(--text-main); 
+            font-size: 2.25em; 
+            margin-bottom: 15px; 
+            font-weight: 800; 
+            letter-spacing: -0.03em;
+        }
+        header p { 
+            color: var(--text-muted); 
+            font-size: 1.15em; 
+            max-width: 700px; 
+            margin: 0 auto 25px auto; 
+        }
+        
+        nav ul { 
+            list-style: none; 
+            padding: 0; 
+            margin: 0; 
+            display: flex; 
+            justify-content: center; 
+            flex-wrap: wrap; 
+            gap: 10px;
+        }
+        nav li a { 
+            font-weight: 600; 
+            font-size: 0.95em; 
+            color: var(--secondary-color); 
+            padding: 8px 16px; 
+            border-radius: 30px;
+            background-color: var(--background-light);
+            border: 1px solid var(--border-color);
+        }
+        nav li a:hover { 
+            color: var(--primary-color); 
+            background-color: var(--highlight-bg);
+            border-color: var(--primary-color);
+        }
+
+        /* Section layout */
+        section { 
+            padding: 40px; 
+            background-color: var(--card-background); 
+            margin-top: 30px; 
+            border-radius: 16px; 
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.02); 
+        }
+        section h2 { 
+            color: var(--text-main); 
+            font-size: 1.75em; 
+            margin-bottom: 24px; 
+            border-bottom: 2px solid var(--primary-color); 
+            padding-bottom: 12px; 
+            font-weight: 700; 
+        }
+        section h3 { 
+            color: var(--text-main); 
+            font-size: 1.35em; 
+            margin-top: 32px; 
+            margin-bottom: 16px; 
+            font-weight: 600; 
+        }
+        section p { 
+            color: var(--secondary-color); 
+            margin-bottom: 20px; 
+            text-align: justify;
+        }
+
+        /* Forms styling for Dwell Time optimization */
+        form { 
+            background-color: var(--background-light); 
+            padding: 30px; 
+            border-radius: 12px; 
+            border: 1px solid var(--border-color); 
+            margin-top: 20px;
+        }
+        .form-group { 
+            margin-bottom: 24px; 
+        }
+        label { 
+            display: block; 
+            font-weight: 600; 
+            margin-bottom: 8px; 
+            color: var(--text-main); 
+            font-size: 0.95em;
+        }
+        input[type="text"], input[type="number"], input[type="tel"], select, textarea {
+            width: 100%; 
+            padding: 14px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 8px; 
+            box-sizing: border-box; 
+            font-size: 1em;
+            background-color: var(--card-background);
+            color: var(--text-main);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+        }
+        .form-check-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .form-check-item {
+            background-color: var(--card-background);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95em;
+            transition: background-color 0.2s;
+        }
+        .form-check-item:hover {
+            background-color: var(--highlight-bg);
+        }
+        .submit-btn { 
+            background-color: var(--primary-color); 
+            color: white; 
+            border: none; 
+            padding: 16px 30px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 1.1em; 
+            font-weight: 700; 
+            width: 100%; 
+            transition: background-color 0.2s ease; 
+        }
+        .submit-btn:hover { 
+            background-color: var(--primary-hover); 
+        }
+
+        /* Value & Info Boxes */
+        .info-box { 
+            background-color: var(--highlight-bg); 
+            border-left: 4px solid var(--primary-color); 
+            padding: 20px; 
+            border-radius: 0 12px 12px 0; 
+            margin-top: 24px; 
+            color: var(--primary-hover); 
+            font-size: 0.95em;
+        }
+        
+        /* Table Layouts */
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            background-color: var(--card-background);
+        }
+        th, td { 
+            padding: 16px; 
+            text-align: left; 
+            border-bottom: 1px solid var(--border-color); 
+            font-size: 0.95em;
+        }
+        th { 
+            background-color: var(--background-light); 
+            font-weight: 700; 
+            color: var(--text-main); 
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+        tr:hover { 
+            background-color: var(--background-light); 
+        }
+
+        /* Keyword Tags Container */
+        .keyword-tags { 
+            margin-top: 24px; 
+            padding: 16px; 
+            border-top: 1px dashed var(--border-color); 
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .keyword-tags a { 
+            display: inline-block; 
+            background-color: var(--background-light); 
+            color: var(--secondary-color); 
+            padding: 6px 14px; 
+            border-radius: 20px; 
+            font-size: 0.85em; 
+            border: 1px solid var(--border-color);
+        }
+        .keyword-tags a:hover { 
+            background-color: var(--primary-color); 
+            color: white; 
+            border-color: var(--primary-color);
+        }
+
+        /* FAQ Accordion */
+        .faq-dl { 
+            margin-top: 24px; 
+        }
+        .faq-dl dt { 
+            font-weight: 700; 
+            padding: 18px; 
+            background-color: var(--background-light); 
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer; 
+            position: relative; 
+            border: 1px solid var(--border-color);
+            transition: background-color 0.2s;
+        }
+        .faq-dl dt:hover {
+            background-color: var(--highlight-bg);
+        }
+        .faq-dl dt::after { 
+            content: '+'; 
+            position: absolute; 
+            right: 20px; 
+            font-size: 1.2em; 
+            color: var(--secondary-color);
+        }
+        .faq-dl dt.active::after { 
+            content: '-'; 
+        }
+        .faq-dl dd { 
+            padding: 18px 20px; 
+            background-color: var(--card-background); 
+            border-left: 2px solid var(--primary-color);
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            border-radius: 0 0 8px 8px;
+            display: none; 
+            margin: -8px 0 12px 0; 
+            font-size: 0.95em;
+            color: var(--secondary-color);
+        }
+
+        /* Simulated Data Visuals */
+        .data-visualization { 
+            background-color: var(--background-light); 
+            padding: 24px; 
+            border-radius: 12px; 
+            border: 1px solid var(--border-color); 
+            margin-bottom: 24px; 
+        }
+        .graph-description { 
+            font-style: normal; 
+            color: var(--text-muted); 
+            font-size: 0.85em; 
+            margin-top: 12px; 
+        }
+        .chart-bar-container {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 220px;
+            margin-top: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .chart-bar {
+            width: 18%;
+            border-radius: 6px 6px 0 0;
+            background-color: var(--primary-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            color: white;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-align: center;
+            padding-bottom: 8px;
+            box-sizing: border-box;
+            transition: height 0.5s ease;
+        }
+        .chart-bar.secondary {
+            background-color: var(--secondary-color);
+        }
+        .chart-bar.accent {
+            background-color: var(--accent-color);
+        }
+
+        /* External & Related Links */
+        .related-links { 
+            background-color: var(--background-light); 
+            padding: 20px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 12px; 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 12px; 
+            margin-top: 24px; 
+        }
+        .related-links a { 
+            display: inline-block; 
+            padding: 8px 16px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 6px; 
+            font-size: 0.9em; 
+            color: var(--text-main); 
+            background-color: var(--card-background);
+            transition: all 0.2s ease; 
+        }
+        .related-links a:hover { 
+            background-color: var(--highlight-bg); 
+            border-color: var(--primary-color); 
+            color: var(--primary-color); 
+        }
+
+        /* Footer Style */
+        footer { 
+            background-color: var(--text-main); 
+            color: white; 
+            text-align: center; 
+            padding: 40px; 
+            margin-top: 40px; 
+            border-radius: 16px 16px 0 0; 
+        }
+        footer p { 
+            margin: 6px 0; 
+            font-size: 0.9em; 
+            color: #9ca3af;
+        }
+
+        /* Real-time Interactive Calculator Interface CSS */
+        .live-calc-container {
+            background-color: var(--highlight-bg);
+            border: 1px solid var(--primary-color);
+            padding: 24px;
+            border-radius: 12px;
+            margin-top: 24px;
+        }
+        .live-calc-result {
+            font-size: 1.5em;
+            font-weight: 800;
+            color: var(--primary-hover);
+            margin-top: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>더올뉴 모닝 장기렌트카 최저가 비교 플랫폼</h1>
+        <p>기아 더올뉴 모닝의 2026년 무보증 장기렌트 가격과 연령별, 등급별 최적 요금을 직접 계산하고 다이렉트로 전 금융사의 견적을 투명하게 비교해 보세요.</p>
+        <nav aria-label="주요 메뉴">
+            <ul>
+                <li><a href="#렌트료계산">실시간 요금 계산</a></li>
+                <li><a href="#등급별비교">등급별 렌트료 비교</a></li>
+                <li><a href="#시장동향">2026 렌트 시장 동향</a></li>
+                <li><a href="#가이드">장기렌트 맞춤형 가이드</a></li>
+                <li><a href="#정보센터">상세 정보 분석 센터</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <section id="렌트료계산">
+            <h2>더올뉴 모닝 장기렌트카 실시간 맞춤 견적 요청</h2>
+            <p>기본 등급인 트렌디부터 최고급 시그니처, 스포티한 GT-라인까지 사용자의 조건에 부합하는 요금 견적을 간편하게 산정해 볼 수 있습니다. 아래의 계약 항목을 설정하시면 신뢰할 수 있는 전 금융사의 데이터베이스와 연계된 전문 상담 및 맞춤형 컨설팅 절차가 즉각 진행됩니다.</p>
+
+            <form action="/submit-rental-quote" method="POST">
+                <div class="form-group">
+                    <label for="car-trim">1. 모닝 차량 트림 세부 사양 선택 (필수)</label>
+                    <select id="car-trim" name="car-trim" onchange="calculateLiveRental()" required>
+                        <option value="trendy">더올뉴 모닝 1.0 가솔린 트렌디 (기본형)</option>
+                        <option value="prestige">더올뉴 모닝 1.0 가솔린 프레스티지 (실속형)</option>
+                        <option value="signature">더올뉴 모닝 1.0 가솔린 시그니처 (고급형)</option>
+                        <option value="gt-line">더올뉴 모닝 1.0 가솔린 GT-라인 (스포티형)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="rental-period">2. 장기렌트 계약 기간 설정 (필수)</label>
+                    <select id="rental-period" name="rental-period" onchange="calculateLiveRental()" required>
+                        <option value="36">36개월 계약</option>
+                        <option value="48" selected>48개월 계약</option>
+                        <option value="60">60개월 계약</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="driver-age-limit">3. 운전자 보험 연령 한정 범위 (필수)</label>
+                    <select id="driver-age-limit" name="driver-age-limit" onchange="calculateLiveRental()" required>
+                        <option value="21">만 21세 이상 한정</option>
+                        <option value="26" selected>만 26세 이상 한정</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>4. 초기 자격 및 보증금 조건 (선택)</label>
+                    <div class="form-check-group">
+                        <label class="form-check-item">
+                            <input type="radio" id="initial-type-1" name="initial-type" value="0" checked onchange="calculateLiveRental()">
+                            무보증 (초기 비용 0원)
+                        </label>
+                        <label class="form-check-item">
+                            <input type="radio" id="initial-type-2" name="initial-type" value="20" onchange="calculateLiveRental()">
+                            보증금 20퍼센트 납부
+                        </label>
+                        <label class="form-check-item">
+                            <input type="radio" id="initial-type-3" name="initial-type" value="30" onchange="calculateLiveRental()">
+                            선납금 30퍼센트 납부
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="mileage-limit">5. 연간 약정 주행 거리 한도</label>
+                    <select id="mileage-limit" name="mileage-limit" required>
+                        <option value="10000">연간 1만 킬로미터 제한 (출퇴근용)</option>
+                        <option value="20000" selected>연간 2만 킬로미터 제한 (표준형)</option>
+                        <option value="30000">연간 3만 킬로미터 제한 (영업 다목적)</option>
+                        <option value="unlimited">연간 주행거리 무제한</option>
+                    </select>
+                </div>
+
+                <div class="live-calc-container">
+                    <label>실시간 모의 자가 계산 결과 (예상 월 대여료)</label>
+                    <div class="live-calc-result" id="calculated-rent-result">월 약 245,000원</div>
+                    <p class="graph-description" style="text-align: center; margin-bottom: 0;">해당 견적은 단순 예상 계산 결과값이며, 실제 각 렌트사의 일시적인 이벤트 조건이나 금융 제휴사 심사 등급에 따라 요금이 추가로 낮아질 수 있습니다.</p>
+                </div>
+
+                <div class="form-group" style="margin-top:24px;">
+                    <label for="contact-phone">6. 무료 상세 견적 안내용 연락처 (필수)</label>
+                    <input type="tel" id="contact-phone" name="contact-phone" placeholder="예시: 010-1234-5678" required>
+                </div>
+
+                <button type="submit" class="submit-btn" aria-label="맞춤형 최저가 렌트 비교 신청">더올뉴 모닝 장기렌트카 최저가 비교 신청하기</button>
+            </form>
+
+            <div class="info-box">
+                선택하신 세부 모델 및 정비 포함 범위 여부에 따라 렌트사별 손해율 할인 폭이 각양각색으로 변경됩니다. 불필요한 중복 납부 세금을 대폭 감면받고 실시간 다이렉트 할인 방식을 도입하여 장기렌트 계약의 합리성을 한 차원 더 높여 보시기 바랍니다.
+            </div>
+
+            <div class="keyword-tags" aria-label="인기 연관 검색 키워드">
+                <a href="#렌트료계산">더올뉴 모닝 장기렌트카 금액</a>
+                <a href="#등급별비교">모닝 장기렌트 가격비교</a>
+                <a href="#시장동향">경차 장기렌트 무보증</a>
+                <a href="#가이드">개인사업자 경차 혜택</a>
+                <a href="#정보센터">모닝 2026년식 렌트 요금제</a>
+                <a href="#렌트료계산">신차 장기렌트 다이렉트 싼곳</a>
+            </div>
+        </section>
+
+        <hr style="border: none; border-top: 1px solid var(--border-color); margin: 40px 0;">
+
+        <section id="등급별비교">
+            <h2>기아 더올뉴 모닝 트림별 예상 렌트 요금 분석</h2>
+            <p>더올뉴 모닝의 장기렌트 요금은 세부 종류와 탑재되는 품목 사양에 따라 폭넓게 조정됩니다. 2026년 기준 기아의 대형 협력 렌트사 통합 자료를 기반으로 작성한 대표 견적 평균 지표를 통해 매칭 가능한 적합 모델을 비교 선별해 보세요.</p>
+
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>모닝 트림 사양</th>
+                            <th>예상 월 대여료 (무보증 기준)</th>
+                            <th>예상 월 대여료 (선납 30% 기준)</th>
+                            <th>주요 추천 타겟 및 활용 목적</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1.0 가솔린 트렌디</td>
+                            <td>월 310,000원 ~ 330,000원</td>
+                            <td>월 210,000원 ~ 230,000원</td>
+                            <td>초저가 중심 가성비를 지향하는 출퇴근용 목적 운전자</td>
+                        </tr>
+                        <tr>
+                            <td>1.0 가솔린 프레스티지</td>
+                            <td>월 330,000원 ~ 360,000원</td>
+                            <td>월 230,000원 ~ 250,000원</td>
+                            <td>옵션의 균형이 잘 어우러진 대다수 실속형 개인 및 회사 업무용</td>
+                        </tr>
+                        <tr>
+                            <td>1.0 가솔린 시그니처</td>
+                            <td>월 370,000원 ~ 400,000원</td>
+                            <td>월 260,000원 ~ 280,000원</td>
+                            <td>안전 드라이빙 편의사양과 고급 가죽 내장재를 풍부히 갖춘 주력 모델</td>
+                        </tr>
+                        <tr>
+                            <td>1.0 가솔린 GT-라인</td>
+                            <td>월 390,000원 ~ 420,000원</td>
+                            <td>월 280,000원 ~ 310,000원</td>
+                            <td>개성 있는 외관 디자인과 스포티한 드라이빙 감성을 즐기는 운전자</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-box">
+                선택 품목인 드라이브 와이즈 옵션을 추가하게 되면 능동형 첨단 주행 보조 기능이 포함되어 사고 발생 확률을 대폭 억제할 수 있습니다. 렌트사 및 금융사 상품 종류에 따라 안전 옵션 장착 차량에 추가 할인을 적용해 주기도 하므로 상세 가격 산정 시 포함하는 것을 적극 추천합니다.
+            </div>
+
+            <h3>운전 연령 제한 요건에 따른 월 요금 격차 지표</h3>
+            <div class="data-visualization">
+                <p class="graph-description">2026년 상반기 전체 렌트사 제휴 조건 평균 기준: 운전자 제한 한도 설정 조건에 따른 예상 대여료 가산 비율 (백분율 표시)</p>
+                <div class="chart-bar-container">
+                    <div class="chart-bar" style="height: 100%;">만 21세 이상 한정 (100%)</div>
+                    <div class="chart-bar secondary" style="height: 82%;">만 26세 이상 한정 (82%)</div>
+                    <div class="chart-bar accent" style="height: 75%;">가족 무제한 특약 적용 (75%)</div>
+                    <div class="chart-bar" style="height: 65%;">지정 1인 단독 운전 (65%)</div>
+                </div>
+                <p class="graph-description">위의 비교 수치가 보여주듯 만 21세 미팅 연령층의 손해율 책정 요율이 상대적으로 높기 때문에, 자격 연령을 높이거나 단독 운전으로 구성을 압축 설정할 때 대여 비용 절감률이 극대화됩니다.</p>
+            </div>
+        </section>
+
+        <hr style="border: none; border-top: 1px solid var(--border-color); margin: 40px 0;">
+
+        <section id="시장동향">
+            <h2>2026년 자동차 장기렌트 시장 동향과 더올뉴 모닝 혜택 분석</h2>
+            <p>2026년에 들어서며 한국의 자동차 소비 습관은 기계적 소유 중심에서 스마트한 공유와 실용 지향적 임대 형태로 확연히 이동하였습니다. 그중에서도 더올뉴 모닝은 뛰어난 경제적 효용성으로 개인 및 기업을 통틀어 최상위권의 문의 건수를 기록하고 있습니다. 2026년 현재 시장에서 다루어지는 핵심 변동 요인을 바탕으로 모닝 장기렌트의 강점을 해부합니다.</p>
+
+            <h3>1. 고금리 환경에 따른 자금 유동성 확보와 무보증 계약의 급증</h3>
+            <p>시중 금융 환경의 영향으로 높은 이율을 직접 감수하며 현금 할부 구매를 고집하기보다 초기 예산 부담이 아예 발생하지 않는 무보증 조건의 비중이 월등히 높아졌습니다. 보증 심사 역시 과거처럼 까다로운 소득 증빙 서류 준비 대신 간편한 온라인 신용 등급 자동 평가 및 간소화 앱을 통해 손쉽고 신속하게 승인되는 구조로 개편되었습니다.</p>
+
+            <h3>2. 경차만이 누릴 수 있는 특별 세제 혜택과 비용 처리 요건</h3>
+            <p>더올뉴 모닝 장기렌트는 개인사업자나 법인 사업을 영위하는 대표자분들에게 막강한 세무 상 메리트를 부여합니다. 경차 승용차 장기렌트는 매월 고정 납부하는 월 대여료의 전액 비용 처리가 가능할 뿐만 아니라, 임직원 전용 보험에 의무적으로 서명하지 않더라도 전액 비용 정산을 유연하게 보장받습니다. 유류비 환급 제도 및 유류세 감면 연장 프로모션 또한 적극 활용할 수 있는 이점입니다.</p>
+
+            <h3>3. 스마트 안전 센서 기술 접목에 기인한 위험 요인 관리 및 보험료 경감</h3>
+            <p>스마트 센서 안전 보조 기술 장치가 장착된 최근 출시 등급 차량은 주행 편의뿐 아니라 전방 충돌 방지 및 이탈 경로 제어 시스템이 조화롭게 결합되어 사고 위험성을 현격히 축소합니다. 렌트사 역시 사고 위험률 감소에 발맞추어 기본 요금제 책정 과정에서 보이지 않는 특별 선제 할인을 더하고 있으므로 계약 실행에 아주 유리한 환경이 지속되고 있습니다.</p>
+
+            <h3>장기렌트 계약 최종 실행 전 필수 핵심 자가 점검표</h3>
+            <form action="/submit-checklist" method="POST">
+                <div class="form-group">
+                    <label>더올뉴 모닝 계약 검토 체크리스트</label>
+                    <div style="background-color: var(--card-background); padding: 20px; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <label class="form-check-item" style="border: none; padding: 4px 0;">
+                            <input type="checkbox" id="check-list-1" name="checklist[]" value="전체 렌트사 다이렉트 견적 대조 완료">
+                            1. 전 금융 협력사의 월 요금제 최적 다이렉트 좌표 비교 완료 여부
+                        </label><br>
+                        <label class="form-check-item" style="border: none; padding: 4px 0;">
+                            <input type="checkbox" id="check-list-2" name="checklist[]" value="약정 주행거리 초과 패널티 요율 점검">
+                            2. 본인의 운행 거리를 분석하여 초과 사용량당 위약 지불 규정 확인 여부
+                        </label><br>
+                        <label class="form-check-item" style="border: none; padding: 4px 0;">
+                            <input type="checkbox" id="check-list-3" name="checklist[]" value="보증보험 대체 활용 가능 여부">
+                            3. 초기 부담 완화를 위한 보증보험 발행 프로세스 및 한도 체크 여부
+                        </label><br>
+                        <label class="form-check-item" style="border: none; padding: 4px 0;">
+                            <input type="checkbox" id="check-list-4" name="checklist[]" value="정비 패키지 옵션 가입 여부 조율">
+                            4. 소모품 정비 교환 위탁 옵션을 제외하여 추가 다이렉트 할인을 이끌어냈는지 여부
+                        </label><br>
+                        <label class="form-check-item" style="border: none; padding: 4px 0;">
+                            <input type="checkbox" id="check-list-5" name="checklist[]" value="중도 해지시 위약금 요율 약관 확인">
+                            5. 혹시 모를 중도 반납 및 중도 승계 조건의 잔여 개월 규정 해석 여부
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn" aria-label="진단표 제출">자가 진단 체크리스트 상태 등록</button>
+            </form>
+        </section>
+
+        <hr style="border: none; border-top: 1px solid var(--border-color); margin: 40px 0;">
+
+        <section id="가이드">
+            <h2>장기렌트 최저가 실현 및 현명한 제휴사 선택 원칙</h2>
+            <p>단순히 노출되는 첫 장기렌트 가격표 상의 월 대여 금액 수치만 쳐다보고 무작정 서명 단계로 이동하게 되면 잔존가치 기준 조작이나 필수 정비 항목 강제 포함 등 숨겨진 옵션에 의해 총 납입 금액이 도리어 늘어날 수도 있습니다. 안전하고 스마트하게 모닝 계약에 도달하기 위한 원칙을 자세히 가이드해 드립니다.</p>
+
+            <h3>필수 적용 검토 사항</h3>
+            <ul>
+                <li><strong>온라인 직접 대조 필수:</strong> 다이렉트 연동 플랫폼을 사용하여 불필요한 영업 유통 수수료 마진을 완전히 배제해야 최저 가격 계약 달성이 가까워집니다.</li>
+                <li><strong>만기 인수 조건 선택 최적화:</strong> 반납을 위주로 주행하실 경우 잔존 가치 수준을 최대한 상향시켜 매월 납부하게 되는 대여 비용을 최대로 깎아 달라고 요구해야 이득입니다.</li>
+                <li><strong>특수 혜택 및 추가 지원 조건 수렴:</strong> 제휴 금융 채널의 비정기 신년 맞이 및 기간 한정 신년 초특가 행사 정보를 미리 파악해두면 월 요금 차액이 크게 발생합니다.</li>
+                <li><strong>썬팅 등 사은품 및 지원금 세부 조항:</strong> 렌트 영업 대행소별로 지급 보장을 약속하는 전면 고급 선팅 필름이나 고해상도 블랙박스 무상 매칭, 특수 일시적 현금지원 및 지원금 조건을 영리하게 요청하십시오.</li>
+            </ul>
+
+            <div class="info-box">
+                더올뉴 모닝 장기렌트는 초기 가입 절차가 수입 스포츠카나 고급 세단 등 중량 등급의 차량에 비해서 월등히 유연한 편입니다. 특히 첫 장기렌트를 시도해 보려는 사회초년생들이나 신규 1인 기업 창업자들에게 진입 장벽이 제일 낮으므로 선제적인 제안 상담을 적극 추천해 드립니다.
+            </div>
+        </section>
+
+        <hr style="border: none; border-top: 1px solid var(--border-color); margin: 40px 0;">
+
+        <section id="정보센터">
+            <h2>기아 더올뉴 모닝 장기렌트카 정보 센터 및 종합 심층 분석</h2>
+            <div class="long-content">
+                <p>기아의 독보적인 대표 경차 세그먼트 브랜드인 모닝은 더올뉴 모닝이라는 완전한 페이스리프트 및 업그레이드를 통해 최신 시장의 기대를 적극적으로 관통하는 중입니다. 대한민국 경차 규격을 준수하면서도 혁신적인 3세대 플랫폼 기반 안전 보강을 완수하였으며, 내부 탑재 공간의 유연한 확장을 일구어냈습니다. 특히 매월 나가는 운용 비용을 알뜰하게 유지하기 위해 장기렌트카 이용 수단을 알아보는 소비자들이 매달 눈에 띄게 크게 증가하고 있는 추세입니다.</p>
+
+                <h3>1. 모닝의 기본 월 대여료 평균 및 보증 설정에 따른 비용 차이</h3>
+                <p>많은 고객분들이 제일 궁금해하시는 핵심 의문은 아마 한 달 납부 대여 금액이 과연 평균 얼마 수준에 형성되어 있는지, 그리고 예상되는 최종 월 부담 비용은 정확히 어디서 결정되는지일 것입니다. 모닝의 표준 계약 연수로 통용되는 48개월 계약 조건을 베이스로 비교했을 때, 선수금을 한 푼도 내지 않는 무보증 조건의 월 대여 가격은 대략 30만 원대 초반 선에 안전하게 형성됩니다. 만약 자금 회전을 더 원활하게 유도하여 월 대여 요금 자체를 더 저렴하게 희망하신다면 대여료 선납 기능을 동반하여 선납금 30%를 사전에 입금해두면 월 예상 요금이 약 20만 원대 극초반이라는 믿을 수 없는 금액대로 극적인 할인 혜택 배치가 가능합니다.</p>
+
+                <h3>2. 대기업 제휴 캐피탈별 요금 분석 및 계산기 어플리케이션 활용의 가치</h3>
+                <p>과거에는 장기렌트 가격 정보를 전달받기 위해 담당 영업 사원과 귀찮게 수차례의 통화를 하며 세부 수수료 견적을 어렵게 조율해야만 했습니다. 하지만 오늘날 2026년 기준으로는 다수의 다이렉트 비교 온라인 웹 사이트나 스마트폰 간편 요금 계산 모바일 앱 및 모션 어플 등을 활용하여 누구나 앉은 자리에서 단 수초 만에 정밀 자가 계산을 마칠 수 있습니다. 사용자가 직접 렌트 어플 내에 원하는 옵션을 더하거나 뺀 후 전면적으로 수집되는 전용 시뮬레이터를 작동시키면 세부 요율이 깔끔하게 표시됩니다. 또한 즉각적인 제휴 상담이나 유료 컨설팅 없이도 본인의 예상 이용액 한도가 도출되기에 불필요한 압박감 없이 냉철한 시장 조율을 스스로 이어갈 수 있게 되었습니다.</p>
+
+                <h3>3. 인터넷 중심 동호회 및 주요 온라인 커뮤니티의 실감 나는 내돈내산 가감 없는 평가</h3>
+                <p>실질적인 구매와 실제 계약 체결을 추진하기 이전에 국내를 대표하는 차량 관련 인기 정보 커뮤니티인 디시인사이드 장기렌트 게시판, 보배드림 경차 토론 포럼, 그리고 대중적인 젊은 소비층의 집결지인 펨코(에펨코리아) 등에서 직접 생성되고 전파되는 신뢰성 높은 실제 고객 후기들을 읽어보는 절차가 많은 도움이 될 것입니다. 실제 이용 고객들이 공유해 주는 리얼 후기 자료들을 다각도로 살펴보면, 경차이기에 누릴 수 있는 고속도로 통행료 절반 면제 및 공영주차장 주차 요금 50% 할인에 관한 장점뿐만 아니라, 일반 세단 대비 노면 충격 진동 등이 발생한다는 일부 경차 모델의 구조적 단점이나 한계에 대해서도 가감 없이 직시하게 됩니다. 커뮤니티 성지 좌표 정보를 활용하면 특정 월이나 기간별로 한시적 현금지원 및 지원금, 사은품 패키지 규모를 가장 넉넉하게 보장해 준다는 우수 다이렉트 대리점 성지를 공유받아 알뜰한 경로를 획득할 가능성도 높습니다.</p>
+
+                <h3>4. 장기렌트와 일반 할부 구매 및 리스 상품군 사이의 비용 효율 분석</h3>
+                <p>더올뉴 모닝을 새 차로 몰고 가기 위한 합리적인 종류로는 크게 다이렉트 자동차 할부 금융 구매, 자동차 리스 계약, 그리고 신차 장기렌트카 가입 형태로 크게 분류되어 논의됩니다. 이 중에서 리스는 일반 하위 번호판(하, 허, 호) 대신에 일반 승용 등급 차량 번호판을 부착할 수 있다는 장점은 있지만, 개인 신용 한도에 직접적인 부채 대출금 정보로 잡히기 때문에 향후 가계 주택 자금 융자 심사 등에서 예상하지 못했던 복잡한 대출 한도 제약을 당할 위험성이 잠재되어 있습니다. 반면 장기렌트는 오직 렌트 전문 캐피탈사의 소유 차량을 월 사용료 개념으로 대여해 오는 방식이므로 신용상의 부채 한도 하락 리스크가 완벽히 차단됩니다. 또한 보험 경력이 초기화되거나 면허 취득 기간이 짧아 단독 자동차 보험에 단독 가입할 때 과중하게 청구되는 새내기 운전자 보험료 압박도 렌트사 통합 일괄 요율을 따라가기에 매월 비용이 합산되어 훨씬 싼곳 혹은 실속형으로 다가올 것입니다.</p>
+
+                <h3>5. 법인사업자 경차 임차 요건과 영리한 유류세 환급 부가세 전액 환급 혜택</h3>
+                <p>일반 중대형 가솔린 승용 차량을 장기렌트할 시에는 업무 일지 작성 여부나 임직원 특별 특약 여부에 구애받아 비용 처리를 조율해야 하지만, 더올뉴 모닝은 대한민국 현행 법령상 순수 경형 승용차로 지정되어 있어 복잡하게 주행 업무 기록을 매일매일 작성하지 않더라도 부가세 환급 대상 법령에 고스란히 편입됩니다. 또한 차량의 전체 정비 정산액과 소모품 관리 지출 역시 고스란히 부가 가치세 전액 세액 공제와 한도 없는 사업 경비 차감 처리가 가능하기 때문에 실효성 있고 탁월한 알짜 경비 세이브 효율을 보장받을 수 있습니다. 영업 활동을 담당하는 초년생이나 단거리 현장 이동이 빈번한 대리점 현장 지원 실무진들에게 기아 모닝은 절대 실망시키지 않는 최고의 업무용 파트너가 되어줄 것입니다.</p>
+
+                <h3>6. 제휴 스마트 포털 및 금융 채널을 응용한 최신 모닝 추가 할인 결제 꿀팁</h3>
+                <p>과거에는 순수 렌트사에 직접 전화해서 오직 단일 견적만을 가늠했으나, 최근 2026년 들어서는 네이버 쇼핑 제휴 채널이나 구글 금융 검색, 유튜브 리뷰 전문 창구 등 대형 플랫폼사에서 주도적으로 제안하는 공동 계약 행사들도 대거 개방되었습니다. 또한 많은 스마트 이용자들이 실질적인 혜택 검토를 위해 트위터나 인스타그램, 페이스북 내의 실시간 프로모션 공지들을 교차 참조하며, 일상적으로 사용하는 메신저인 카카오톡이나 텔레그램을 활용한 1초 자동 견적 안내 챗봇 서비스로 즉각적인 제안을 받아봅니다. 심지어 대세 금융 플랫폼인 토스 앱 내에서도 자동차 장기렌트 메뉴를 개설하여 한시적 계약 선물로 현금성 포인트나 백화점 상품권 증정 혜택을 매칭해 주는 기획 이벤트를 연달아 선보이고 있어 최신 트렌드를 따르는 스마트한 계약자들이 늘고 있습니다.</p>
+
+                <h3>7. 인공지능 기반 지능형 비교 도구를 이용한 미래형 최저가 렌트 서칭 방식</h3>
+                <p>최근 정보 탐색의 표준은 과거 포털에만 전적으로 의존하던 수준에서 도약하여, 신뢰할 수 있는 정보를 체계적으로 정리해 주는 챗지피티(ChatGPT), 구글의 제미나이(Gemini), 그리고 첨단 AI 엔진들이 탑재된 똑똑한 대화형 에이전트 서비스를 똑똑하게 활용하는 패턴으로 전환되고 있습니다. 인공지능 에이전트 시스템에 단순히 더올뉴 모닝 장기렌트카 최저가 가장 저렴한곳 순위라는 자연스러운 의문을 제기하면, AI 플랫폼이 시중에 분산되어 있는 각종 렌트 에이전시들의 실제 가격 편차 데이터와 수수료 구간 마진율을 심층 분석하여 일반인들이 쉽게 분별할 수 없는 투명한 견적을 바로 추천 리스트로 도출해 줍니다. 저희 최저가 플랫폼 역시 인공지능 가격 감지 모듈을 적극 탑재하여 최저가 변동 그래프 데이터를 실시간 피드백하고 있습니다.</p>
+
+                <h3>8. 모닝 장기렌트 장기 보존 가치 및 중고 차량 시세 전망</h3>
+                <p>계약 기간이 종료되는 만기 시점에 차를 렌트사에 무조건 반납하고 끝내는 것이 아니라, 만기 인수 옵션을 전략적으로 이행하는 것도 금전적 자산을 늘리는 훌륭한 수단입니다. 한국의 경차 중고 가격 방어율은 모닝이라는 국산 장수 베스트셀러 브랜드가 언제나 우세하게 점유하고 있으므로, 만약 반납하지 않고 직접 인수할 때 책정되어 있던 사전 약정 잔존 가치 금액보다 실제 만기 도달 시점의 모닝 중고차 실거래 시세가 확연히 높게 유지가 될 경우, 본인 비용으로 깔끔하게 명의 인수 후 바로 일반 중고 매매 시장에 판매해 소정의 금전적 차익 실현도 노려볼 수 있어 알뜰한 일석이조의 효과를 체감하게 됩니다.</p>
+            </div>
+        </section>
+
+        <hr style="border: none; border-top: 1px solid var(--border-color); margin: 40px 0;">
+
+        <section id="자주묻는질문">
+            <h2>더올뉴 모닝 장기렌트 자주 묻는 질문</h2>
+            <dl class="faq-dl">
+                <dt tabindex="0" aria-expanded="false" class="faq-question">Q. 경차인 더올뉴 모닝을 장기렌트할 때 보험 보장 한도는 어떻게 결정되나요?</dt>
+                <dd class="faq-answer">A. 기본 제공되는 장기렌트 내장 보험은 대인 보상 범위 무제한, 대물 보증 한도는 평균 1억 원에서 최고 3억 원 이상으로 아주 든든하고 안전하게 세팅되어 제공됩니다. 주행 중 운전자의 과실로 사고가 발생하더라도 사전에 정해진 일정 액수의 소액 자기부담금(보통 10만 원 내지 20만 원 선)만 납부하면, 추가적인 보험료 할증 불이익이나 패널티 일체 없이 모든 렌트사 제휴 종합 정비 프로세스를 완벽하게 진행할 수 있어 운행 부담이 전혀 없습니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="faq-question">Q. 무보증 계약 승인을 받기 위한 세부 자격 요건은 어떤 수준인가요?</dt>
+                <dd class="faq-answer">A. 보증 조건을 전혀 수반하지 않는 신차 무보증 계약 진행의 경우, 신용 평점 등급 하락을 유발하지 않는 간편한 렌트사 자체 신용 자동 필터링을 통과하면 즉시 계약 체결이 완료됩니다. 소득 활동 사실이 불안정한 신규 직장 가입 경력의 직장인이나 초기 자금 집행을 망설이는 스타트업 대표라 할지라도, 저렴한 다이렉트 컨설팅 대리점 연계를 동반하여 일정 수준 이상의 최소 평점이 보장되면 추가 담보 증권 제출 없이 매끄러운 0원 출고 계약이 보장됩니다.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="faq-question">Q. 계약 도중 차량을 타인에게 중도 승계하거나 약정을 변경하고 싶으면 어떻게 하나요?</dt>
+                <dd class="faq-answer">A. 장기렌트는 중도에 약정을 갑자기 취소할 때 높은 퍼센트의 계약 위약 수수료가 청구됩니다. 이를 현명하게 회피하기 위해서는 계약 해지 대신 인터넷 네이버 동호회 카페 혹은 온라인 성지 게시판 내의 승계 장터를 이용하여 남은 잔여 기간 및 요금제를 그대로 승계받아 줄 제3자 양수 희망자를 구하는 방법이 현저하게 합리적입니다. 승계 대행 매칭 전문 업체의 수수료 요율을 사전에 잘 검토하셔서 금전 피해를 최소화하십시오.</dd>
+
+                <dt tabindex="0" aria-expanded="false" class="faq-question">Q. 주행 거리 약정을 연간 최저 한도로 정하면 손해인가요?</dt>
+                <dd class="faq-answer">A. 출퇴근 용도로만 가볍게 일상 사용을 주도하는 분들에게는 주행 제한 폭을 낮게 조정해두시는 것을 가장 합리적인 가치 선택으로 추천해 드립니다. 사용 패턴이 적은 분들이 불필요하게 대여 거리를 넉넉하게 산정하면 월 대여 요금에 불필요한 기본 경비가 추가되어 금전적 부담이 늘어나므로, 본인의 1년간 장거리 왕복 일정을 충분히 누계 대조하여 알맞은 구간을 세팅해 가입하시는 것이 비용 절감 측면에서 최우선으로 유리한 선택입니다.</dd>
+            </dl>
+        </section>
+
+        <hr style="border: none; border-top: 1px solid var(--border-color); margin: 40px 0;">
+
+        <section id="연락처">
+            <h2>더올뉴 모닝 장기렌트카 다이렉트 센터</h2>
+            <p>다양한 캐피탈 전용 렌트 혜택 정보 공유와 모닝 전 등급의 무보증 할인 견적 컨설팅은 아래 창구를 통해 연중무휴 안전하게 접수하실 수 있습니다.</p>
+            <ul>
+                <li><strong>고객 전용 유선 직통 센터:</strong> 1800-XXXX (연중무휴 평일 09시 ~ 18시 운영)</li>
+                <li><strong>상담 및 자료 교환 이메일:</strong> rental-morning@yourdomain.com</li>
+            </ul>
+            
+            <form action="/quick-rental-consultation" method="POST">
+                <div class="form-group">
+                    <label for="user-name">신청자 성함 (실명 입력)</label>
+                    <input type="text" id="user-name" name="user-name" placeholder="예시: 홍길동" required>
+                </div>
+                <div class="form-group">
+                    <label for="user-tel">안내 통화 가능하신 연락처</label>
+                    <input type="tel" id="user-tel" name="user-tel" placeholder="예시: 010-1234-5678" required>
+                </div>
+                <div class="form-group">
+                    <label for="user-notes">추가적인 희망 요청 정보 사양</label>
+                    <textarea id="user-notes" name="user-notes" rows="4" placeholder="예시: 더올뉴 모닝 시그니처 등급에 무보증 조건으로 월 예상 가격 안내 희망합니다. 사은품 패키지 구성 범위도 궁금합니다."></textarea>
+                </div>
+                <button type="submit" class="submit-btn" aria-label="다이렉트 무료상담 예약 접수">모닝 장기렌트 실시간 전 채널 가격 혜택 상담 예약하기</button>
+            </form>
+        </section>
+
+        <hr style="border: none; border-top: 1px solid var(--border-color); margin: 40px 0;">
+
+        <section id="추천정보">
+            <h2>함께 유심히 확인하는 연관 인기 카테고리 정보 및 신뢰 기관</h2>
+            <div class="keyword-tags" aria-label="함께 찾는 카테고리 태그 리스트">
+                <a href="#">더올뉴 모닝 리스 시세표</a>
+                <a href="#">경차 장기렌트 가격비교 사이트</a>
+                <a href="#">신용 불량 경차 장기렌트 무심사</a>
+                <a href="#">기아 모닝 중고차 실거래 시세 가이드</a>
+                <a href="#">다이렉트 개인사업자 장기렌트 장점 단점</a>
+                <a href="#">2026 자동차 세무 비용 처리 법령</a>
+                <a href="#">장기렌트 혜택 및 백화점 사은품 증정 정보</a>
+            </div>
+            
+            <div class="related-links" aria-label="공인 정보 외부 링크 서비스 목록">
+                <a href="https://leasectruthr.withusrizz.com" target="_blank" rel="nofollow noopener">신차 장기렌트 캐피탈 공식 포털</a>
+                <a href="https://namu.wiki/w/%EA%B8%B0%EC%95%84%20%EB%AA%A8%EB%8B%9D" target="_blank" rel="nofollow noopener">기아 모닝 모델 연혁 및 제원 정보 (나무위키)</a>
+                <a href="https://www.kia.com" target="_blank" rel="nofollow noopener">기아 브랜드 공식 사이트</a>
+                <a href="https://www.consumer.go.kr" target="_blank" rel="nofollow noopener">한국소비자원 피해 구제 공식 안내</a>
+                <a href="https://www.law.go.kr" target="_blank" rel="nofollow noopener">국가법령정보센터 (여객자동차 운수사업법 규정)</a>
+            </div>
+        </section>
     </main>
-  </body>
-</html>
+
+  
+    <script>
+        // FAQ Accordion functionality
+        document.querySelectorAll('.faq-dl dt').forEach((dt) => {
+            dt.addEventListener('click', () => {
+                const isActive = dt.classList.contains('active');
+
+                // Collapse other questions
+                document.querySelectorAll('.faq-dl dt').forEach(otherDt => {
+                    otherDt.classList.remove('active');
+                    otherDt.setAttribute('aria-expanded', 'false');
+                    const dd = otherDt.nextElementSibling;
+                    if (dd && dd.tagName === 'DD') {
+                        dd.style.display = 'none';
+                    }
+                });
+
+                // Open/Close clicked question
+                if (!isActive) {
+                    dt.classList.add('active');
+                    dt.setAttribute('aria-expanded', 'true');
+                    const dd = dt.nextElementSibling;
+                    if (dd && dd.tagName === 'DD') {
+                        dd.style.display = 'block';
+                    }
+                }
+            });
+
+            dt.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    dt.click();
+                }
+            });
+        });
+
+        // Real-time live calculator simulation logic (to improve dwell time and interaction)
+        function calculateLiveRental() {
+            const trim = document.getElementById('car-trim').value;
+            const period = parseInt(document.getElementById('rental-period').value);
+            const age = parseInt(document.getElementById('driver-age-limit').value);
+            const initialType = parseFloat(document.querySelector('input[name="initial-type"]:checked').value);
+            
+            // Base price algorithm mapping
+            let basePrice = 310000;
+            if (trim === 'prestige') basePrice = 340000;
+            if (trim === 'signature') basePrice = 380000;
+            if (trim === 'gt-line') basePrice = 400000;
+
+            // Period adjustments
+            let periodFactor = 1.0;
+            if (period === 48) periodFactor = 0.92;
+            if (period === 60) periodFactor = 0.85;
+
+            // Age adjustments
+            let ageFactor = 1.0;
+            if (age === 21) ageFactor = 1.15;
+
+            // Initial deposit adjustments
+            let discount = 0;
+            if (initialType === 20) discount = 30000;
+            if (initialType === 30) discount = 90000; // prepay discount
+
+            let finalResult = Math.round((basePrice * periodFactor * ageFactor) - discount);
+            
+            // Round to 1000s
+            finalResult = Math.ceil(finalResult / 1000) * 1000;
+
+            document.getElementById('calculated-rent-result').innerText = `월 약 ${finalResult.toLocaleString()}원`;
+        }
+
+        // Initialize calculator once
+        window.onload = function() {
+            calculateLiveRental();
+        };
+    </script>
+  
